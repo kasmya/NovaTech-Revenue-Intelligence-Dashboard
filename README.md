@@ -14,49 +14,31 @@
 ## 📁 Folder Structure
 
 ```
-NovaTech_Final/
-├── README.md                        ← this file
-│
-├── documents/
-│   └── novatech_documentation.pdf  ← verification log, Q log, report, annotations
-│
-├── pdfs/
-│   ├── Marketing_Funnel.pdf         ← Sheet 1 export
-│   ├── Sales_Pipeline.pdf           ← Sheet 2 export
-│   ├── Customer_Health.pdf          ← Sheet 3 export
-│   └── Executive_Summary.pdf        ← Full dashboard export
-│
 └── screenshots/
-    ├── 01_analyses_page.png
-    ├── 02_datasets_all_four_SPICE.png
-    ├── 03_verification_chat_datasets_selected.png
-    ├── 04_before_topic_all3_questions.png         ← BEFORE Topic baseline
-    ├── 05_topic_config_all4_datasets.png          ← Topic configuration
-    ├── 06_after_topic_q1_won_deals.png            ← AFTER Topic Q1
-    ├── 07_after_topic_q2_campaign_spend.png       ← AFTER Topic Q2
-    ├── 08_after_topic_q3_priority.png             ← AFTER Topic Q3
-    ├── 09_publish_dashboard.png
-    ├── 10_quicksight_home.png
-    ├── 11_datasets_SPICE_confirmed.png
-    ├── 12_verification_datasets_with_chat.png
-    ├── 13_verification_dataset_selector.png
-    ├── 14_verification_crm_rows_499.png           ← Verification Q1
-    ├── 15_verification_crm_date_range.png         ← Verification Q2
-    ├── 16_verification_null_annual_income.png     ← Verification Q3
-    ├── 17_verification_campaign_names_6.png       ← Verification Q4
-    ├── 18_datatype_fix_ticket_resolved_datetime.png
-    ├── 19_datatype_marketing_campaigns.png        ← Data type fix
-    ├── 20_datatype_crm_deals.png                  ← Data type fix
-    ├── 21_datatype_support_tickets_datetime.png   ← Data type fix (key)
-    ├── 22_join1_crm_marketing_config.png          ← Join 1 config
-    ├── 23_calculated_fields_sales_cycle_iswon.png ← Calculated fields
-    ├── 24_all_datasets_SPICE_owned.png            ← All 4 datasets
-    ├── 25_join_diagram_all3_unified.png           ← Join diagram (key)
-    ├── 26_calculated_field_net_marketing_profit.png
-    ├── 27_join2_support_tickets_config.png        ← Join 2 config
-    └── 28_calculated_field_iswon.png
+    ├── 01  (Chat with 4 datasets selected as context)
+    ├── 02  (BEFORE Topic — 3 questions: Won=315, Spend=$12.36M, Priority=Low)
+    ├── 03  (Topic "NovaTech Revenue Intelligence" — 4 datasets + priority answer)
+    ├── 04  (AFTER Topic Q1 — "How many CRM deals were Won?" → 315)
+    ├── 05  (AFTER Topic Q2 — "Total marketing campaign spend?" → $12,359,497.34)
+    ├── 06  (AFTER Topic Q3 — "Which priority has most tickets?" → Low: 1,500)
+    ├── 07  (Publish dashboard dialog — name set, All sheets selected)
+    ├── 08  (Analyses page — NovaTech CRM Deal Performance Dashboard listed)
+    ├── 09  (Add Quick assets — 4 datasets, novatech_crm_deals checked)
+    ├── 10  (Verification — CRM rows = 499)
+    ├── 11  (Verification — CRM rows=499 + date range Dec 2023 to Jan 2025)
+    ├── 12  (Verification — date range + annual_income belongs to marketing)
+    ├── 13  (Verification — annual_income null + 6 distinct campaign names)
+    ├── 14  (Data type fix — marketing: campaign_date → Date, annual_income → Decimal)
+    ├── 15  (Data type fix — CRM: deal_created_date → Date, deal_value → Decimal)
+    ├── 16  (Data type fix — support: ticket_resolved_date → Date yyyy-MM-dd HH:mm:ss)
+    ├── 17  (Join 1 config — Left join, CRM + Marketing on account_id = account_id)
+    ├── 18  (Calculated fields — Is Won + Sales Cycle Duration with formulas)
+    ├── 19  (All 4 datasets in SPICE owned by Me)
+    ├── 20  (Full join diagram — all 3 CSVs → Join1 → Join2 → 2 calculated fields)
+    ├── 21  (Calculated field — Net Marketing Profit = revenue_attributed - campaign_spend)
+    ├── 22  (Join 2 config — Left join, Join1 + support tickets on account_id.1 = account_id)
+    └── 23  (CRM pipeline diagram + Is Won = ifelse(deal_stage='Won',1,0))
 ```
-
 ---
 
 ## 📊 Project Summary
