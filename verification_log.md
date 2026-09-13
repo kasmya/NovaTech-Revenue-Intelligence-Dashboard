@@ -3,59 +3,168 @@
 **Project:** NovaTech Revenue Intelligence Dashboard  
 **Student:** Kasmya Bhatia  
 **Platform:** Amazon QuickSight / Quick Suite  
-**Environment:** UdacityQuicksightLab, us-west-2  
-**Date:** September 2026
+**Date:** September 2026  
 
 ---
 
 ## Purpose
-
-This verification log documents the checks performed to ensure that important
-dashboard and Amazon Q results agree with the underlying NovaTech source data.
+This verification log documents the checks performed to ensure that important dashboard and Amazon Q results agree with the underlying NovaTech source data.  
 
 The verification process uses three sources of evidence where applicable:
+- Source CSV / ground-truth calculation  
+- Amazon Q response  
+- Final dashboard visual or KPI  
 
-1. Source CSV / ground-truth calculation
-2. Amazon QuickSight Q&A response
-3. Final dashboard visual or KPI
-
-The purpose is to ensure that reported business numbers are not based only on
-an Amazon Q response or a potentially duplicated joined dataset.
+The purpose is to ensure that reported business numbers are not based only on an Amazon Q response or a potentially duplicated joined dataset.
 
 ---
 
 ## Verification Log
 
-| # | Knowledge Base / Dataset | Question Asked | Expected Answer | Q Answer | Dashboard / Source Check | Match? | Notes |
-|---|---|---|---|---|---|---|---|
-| 1 | NovaTech CRM Deals | What is the total revenue from closed-won deals in the CRM dataset? | **$707,201** across 315 won deals | **$707,201 across 315 won deals** | Sales Pipeline KPI = **$707,201** | PASS | Exact match |
-| 2 | NovaTech CRM Deals | How many unique account IDs are present in the CRM dataset? | **85 unique accounts** | **85 unique account IDs** | Source-level calculation confirms 85 | PASS | Exact match |
-| 3 | NovaTech Marketing Campaigns | How many leads responded positively and what is the overall response rate? | **609 / 2,240 = 27.2%** | **609 positive responses; 27.19%** | Source calculation confirms 609 / 2,240 | PASS | Difference is rounding only |
-| 4 | NovaTech Marketing Campaigns | What is the earliest and latest campaign date? | **2023-01-01 to 2025-01-31** | **January 1, 2023 to January 31, 2025** | Source date range confirms result | PASS | Exact match |
-| 5 | NovaTech Support Tickets | How many tickets have no resolved date? | **59 unresolved tickets** | **59** | Source calculation confirms 59 null resolution dates | PASS | Exact match |
-| 6 | NovaTech Support Tickets | How many tickets are in each priority level? | Low 1,500; Medium 1,050; High 400; Critical 50 | Same distribution | Total = **3,000 tickets** | PASS | Exact match |
-| 7 | CRM / Dashboard | What is the overall win rate? | **315 / 499 = 63.1%** | **63.1%** | Sales Pipeline KPI = **63.1%** | PASS | Source and dashboard agree |
-| 8 | Marketing | What is the total campaign spend? | **$12,359,497.34** | **$12,359,497.34** | Marketing Funnel KPI / source check | PASS | Exact match |
-| 9 | Marketing | What is the total attributed revenue? | **Approximately $1.13M** | **Approximately $1.13M** | Marketing Funnel | PASS | Rounded display value |
-| 10 | Support / Customer Health | Which account has the highest support-ticket volume? | **ACCT-041 / YieldMax Software** | **ACCT-041 / YieldMax Software** | Customer Health | PASS | 334 tickets |
-| 11 | Support / Customer Health | How many tickets remain unresolved? | **59** | **59** | Source calculation | PASS | Joined-model totals must not be used |
-| 12 | Marketing | Are the six campaign programs profitable? | **No; all six have negative ROI** | All six negative | Marketing Funnel | PASS | Source and dashboard agree |
+### 1. CRM — Total Closed-Won Revenue
+- **Question:** What is the total revenue from closed-won deals in the CRM dataset?  
+- **Expected answer:** $707,201 across 315 won deals.  
+- **Amazon Q answer:** $707,201 across 315 won deals.  
+- **Dashboard check:** The Sales Pipeline dashboard reports $707,201 in won revenue.  
+- **Result:** PASS  
+- **Notes:** The Q result, source-level result and dashboard KPI agree.  
 
 ---
 
-## Important Grain Verification
+### 2. CRM — Unique Accounts
+- **Question:** How many unique account IDs are present in the CRM dataset?  
+- **Expected answer:** 85 unique account IDs.  
+- **Amazon Q answer:** 85 unique account IDs.  
+- **Source check:** The CRM source data confirms 85 unique accounts.  
+- **Result:** PASS  
+- **Notes:** The result agrees with the source data.  
 
-The three source datasets contain different levels of detail:
+---
 
-- CRM deals: **499 rows**
-- Marketing campaigns: **2,240 rows**
-- Support tickets: **3,000 rows**
+### 3. Marketing — Positive Responses
+- **Question:** How many marketing records received a positive response and what is the overall response rate?  
+- **Expected answer:** 609 positive responses out of 2,240 records (~27.2%).  
+- **Amazon Q answer:** 609 positive responses and ~27.2%.  
+- **Source check:** 609 / 2,240 = ~27.2%.  
+- **Result:** PASS  
+- **Notes:** Any small difference is due to display rounding.  
 
-The unified model is created using:
+---
 
-```text
-CRM
-  LEFT JOIN Marketing
-      ON account_id
-          LEFT JOIN Support
-              ON account_id
+### 4. Marketing — Date Range
+- **Question:** What is the date range of the marketing dataset?  
+- **Expected answer:** Jan 1, 2023 to Jan 31, 2025.  
+- **Amazon Q answer:** Jan 1, 2023 to Jan 31, 2025.  
+- **Source check:** The source data confirms the same date range.  
+- **Result:** PASS  
+
+---
+
+### 5. Support — Unresolved Tickets
+- **Question:** How many support tickets have no resolved date?  
+- **Expected answer:** 59 unresolved tickets.  
+- **Amazon Q answer:** 59 unresolved tickets.  
+- **Source check:** The Support dataset contains 59 records with missing resolution date.  
+- **Result:** PASS  
+
+---
+
+### 6. Support — Priority Distribution
+- **Question:** How many support tickets are in each priority level?  
+- **Expected answer:**  
+  - Low: 1,500  
+  - Medium: 1,050  
+  - High: 400  
+  - Critical: 50  
+- **Amazon Q answer:** Same distribution.  
+- **Source check:** Totals 3,000 support tickets.  
+- **Result:** PASS  
+
+---
+
+### 7. CRM — Win Rate
+- **Question:** What is the overall sales win rate?  
+- **Expected answer:** 315 won deals out of 499 (63.1%).  
+- **Amazon Q answer:** 63.1%.  
+- **Dashboard check:** Sales Pipeline dashboard reports 63.1%.  
+- **Result:** PASS  
+
+---
+
+### 8. Marketing — Campaign Spend
+- **Question:** What is the total marketing campaign spend?  
+- **Expected answer:** ~$12.36 million.  
+- **Amazon Q / source result:** ~$12.36 million.  
+- **Dashboard check:** Marketing Funnel reports ~$12.36 million.  
+- **Result:** PASS  
+- **Notes:** Dashboard display may round the exact source value.  
+
+---
+
+### 9. Marketing — Attributed Revenue
+- **Question:** What is the total revenue attributed to marketing campaigns?  
+- **Expected answer:** ~$1.13 million.  
+- **Amazon Q / source result:** ~$1.13 million.  
+- **Dashboard check:** Marketing Funnel reports ~$1.13 million.  
+- **Result:** PASS  
+
+---
+
+### 10. Customer Health — Highest Ticket Volume
+- **Question:** Which account has the highest support-ticket volume?  
+- **Expected answer:** ACCT-041 / YieldMax Software.  
+- **Amazon Q answer:** ACCT-041 / YieldMax Software.  
+- **Dashboard check:** Customer Health identifies ACCT-041.  
+- **Result:** PASS  
+- **Additional info:** ACCT-041 has ~334 support tickets and ~$40,722 in associated revenue.  
+
+---
+
+### 11. Support — Unresolved Ticket Count
+- **Question:** How many support tickets remain unresolved?  
+- **Expected answer:** 59.  
+- **Amazon Q answer:** 59.  
+- **Source check:** 59 records missing resolution date.  
+- **Result:** PASS  
+
+---
+
+### 12. Marketing — Campaign Profitability
+- **Question:** Are the campaign programs profitable?  
+- **Expected answer:** All six programs have negative ROI.  
+- **Amazon Q answer:** All six programs have negative ROI.  
+- **Dashboard check:** Marketing Funnel shows spend > attributed revenue.  
+- **Result:** PASS  
+
+---
+
+## Join and Data-Grain Verification
+- CRM is deal-oriented, Marketing is campaign/lead-oriented, Support is ticket-oriented.  
+- Datasets combined using **account ID**:  
+  - CRM → LEFT JOIN Marketing → LEFT JOIN Support  
+- Unified dataset produces ~63,420 rows due to fan-out effect.  
+- **Implication:** Direct summing of CRM revenue in unified dataset inflates values.  
+- **Strategy:**  
+  - CRM source → revenue, deal counts, win rate  
+  - Marketing source → spend, attributed revenue, ROI  
+  - Unified dataset → account-level analysis, support relationships, customer health  
+
+---
+
+## Data Quality Verification
+- **Duplicate Opportunity IDs:** 3 identified, documented.  
+- **Duplicate Ticket IDs:** 4 identified, documented.  
+- **Missing Customer Sentiment:** 59 support records missing values.  
+- **Orphan Accounts:** Marketing/Support contain accounts not in CRM. Preserved via LEFT JOIN.  
+- **Data-Type Corrections:** Numeric/date fields corrected in QuickSight.  
+
+---
+
+## Verification Principle
+Sequence followed:  
+**Source Data → Independent Calculation → Amazon Q → Dashboard**  
+
+- A result is verified when all three agree (allowing rounding).  
+- Discrepancies due to join grain are documented, not hidden.  
+- Amazon Q is treated as an **exploration tool**, not sole source of truth.  
+- Final stakeholder-facing numbers come from source datasets, verified against dashboard.  
