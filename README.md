@@ -1,100 +1,236 @@
 # NovaTech Revenue Intelligence Dashboard
+
 ## Udacity — Future AWS Agentic AI Business Professional
-**Student:** Kasmya Bhatia
+
+**Student:** Kasmya Bhatia  
 **Submitted:** September 12, 2026  
 **Platform:** Amazon QuickSight (SPICE)
 
 ---
 
-## 🔗 Live Dashboard Link
+## 🔗 Live Dashboard
+
 [NovaTech Revenue Intelligence Dashboard](https://us-west-2.quicksight.aws.amazon.com/sn/account/UdacityQuicksightLab/accounts/548602084193/dashboards/d14515fc-5eaf-450b-959b-96d3f335a496)
 
 ---
 
-## 📁 Folder Structure
+## 📌 Project Overview
 
+NovaTech's revenue data is distributed across **CRM, Marketing, and Customer Support** systems. This project brings these sources together in Amazon QuickSight to provide a consolidated view of sales performance, marketing effectiveness, and customer health.
+
+The dashboard was developed using **Amazon QuickSight SPICE**, with source-specific datasets and a unified account-level dataset used for cross-domain analysis.
+
+The project includes:
+
+- Data preparation and validation
+- SPICE dataset ingestion
+- Data-type corrections
+- Calculated fields
+- A unified dataset joining CRM, Marketing, and Support data
+- Three interactive dashboard sheets
+- Filters and dashboard interactions
+- Cross-sheet navigation
+- Amazon QuickSight Q&A / Topic configuration
+- Before-and-after Q&A validation
+- Dashboard annotations
+- Stakeholder-facing analysis and recommendations
+- Published dashboard and PDF export
+- Verification and exploration logs
+
+---
+
+## 📁 Repository Structure
+
+```text
+NovaTech-Revenue-Intelligence-Dashboard/
+│
+├── README.md
+│
+├── evidence_guide.md
+├── exec_summary.md
+├── methodology.md
+├── q_exploration_log.md
+├── stakeholder_report.md
+├── verification_log.md
+│
+└── NovaTech_Project/
+    │
+    ├── documents/
+    │   └── Supporting project documents
+    │
+    ├── pdfs/
+    │   └── Dashboard PDF export
+    │
+    └── screenshots/
+        ├── 1.jpeg – 23.jpeg
+        └── 24.png – 47.png
 ```
-└── screenshots/
-    ├── 01  (Chat with 4 datasets selected as context)
-    ├── 02  (BEFORE Topic — 3 questions: Won=315, Spend=$12.36M, Priority=Low)
-    ├── 03  (Topic "NovaTech Revenue Intelligence" — 4 datasets + priority answer)
-    ├── 04  (AFTER Topic Q1 — "How many CRM deals were Won?" → 315)
-    ├── 05  (AFTER Topic Q2 — "Total marketing campaign spend?" → $12,359,497.34)
-    ├── 06  (AFTER Topic Q3 — "Which priority has most tickets?" → Low: 1,500)
-    ├── 07  (Publish dashboard dialog — name set, All sheets selected)
-    ├── 08  (Analyses page — NovaTech CRM Deal Performance Dashboard listed)
-    ├── 09  (Add Quick assets — 4 datasets, novatech_crm_deals checked)
-    ├── 10  (Verification — CRM rows = 499)
-    ├── 11  (Verification — CRM rows=499 + date range Dec 2023 to Jan 2025)
-    ├── 12  (Verification — date range + annual_income belongs to marketing)
-    ├── 13  (Verification — annual_income null + 6 distinct campaign names)
-    ├── 14  (Data type fix — marketing: campaign_date → Date, annual_income → Decimal)
-    ├── 15  (Data type fix — CRM: deal_created_date → Date, deal_value → Decimal)
-    ├── 16  (Data type fix — support: ticket_resolved_date → Date yyyy-MM-dd HH:mm:ss)
-    ├── 17  (Join 1 config — Left join, CRM + Marketing on account_id = account_id)
-    ├── 18  (Calculated fields — Is Won + Sales Cycle Duration with formulas)
-    ├── 19  (All 4 datasets in SPICE owned by Me)
-    ├── 20  (Full join diagram — all 3 CSVs → Join1 → Join2 → 2 calculated fields)
-    ├── 21  (Calculated field — Net Marketing Profit = revenue_attributed - campaign_spend)
-    ├── 22  (Join 2 config — Left join, Join1 + support tickets on account_id.1 = account_id)
-    └── 23  (CRM pipeline diagram + Is Won = ifelse(deal_stage='Won',1,0))
-```
----
 
-## 📊 Project Summary
-
-**Goal:** Unify NovaTech's siloed CRM, Marketing, and Support data into a single Revenue Intelligence Dashboard so the revenue team can stop pulling manual reports every Monday.
-
-### Data Sources
-| Dataset | Rows | Key Field |
-|---|---|---|
-| novatech_crm_deals.csv | 499 | account_id |
-| novatech_marketing_campaigns.csv | 2,240 | account_id |
-| novatech_support_tickets.csv | 3,000 | account_id |
-| novatech_unified (joined) | >499 | account_id |
-
-### Dashboard Sheets
-| Sheet | Dataset | Key Insight |
-|---|---|---|
-| Marketing Funnel | Marketing | All 6 campaigns negative ROI; Direct Mail converts at 53% |
-| Sales Pipeline | CRM | 63.1% win rate; $707,201 total won revenue |
-| Customer Health | Unified | ACCT-041 highest risk: 334 tickets + $40,722 revenue |
-
-### Key Findings
-- 💸 Total marketing spend: **$12.36M** vs **$1.13M** revenue attributed (−90.9% ROI)
-- ✅ Win rate: **63.1%** (315 won / 184 lost)
-- 🚨 ACCT-041: highest revenue account AND most support tickets
-- ⚠️ Critical tickets resolve in same time as low-priority (~58 hrs each)
-
-### Calculated Fields
-- **Sales Cycle Duration** = `dateDiff({deal_created_date}, {deal_closed_date}, 'DD')`
-- **Is Won** = `ifelse({deal_stage}='Won', 1, 0)`
-- **Net Marketing Profit** = `{revenue_attributed} - {campaign_spend}`
-
-### Join Configuration
-- Anchor: CRM deals
-- Join 1: CRM **LEFT JOIN** Marketing on `account_id`
-- Join 2: Result **LEFT JOIN** Support on `account_id`
+The screenshots folder contains the visual evidence collected during data preparation, dashboard construction, Q&A configuration, publication, filtering, and navigation.
 
 ---
 
-## 📋 Rubric Checklist
+## 📊 Data Sources
 
-- ✅ Verification log — 7 entries across all 3 knowledge bases
-- ✅ Data type corrections — ticket_resolved_date, campaign_date, deal dates
-- ✅ Calculated fields — Sales Cycle Duration, Is Won, Net Marketing Profit
-- ✅ Unified dataset — LEFT JOIN all 3 sources on account_id
-- ✅ 3 dashboard sheets — Marketing Funnel, Sales Pipeline, Customer Health
-- ✅ KPI cards on every sheet
-- ✅ Filters on every sheet
-- ✅ One-click filtering action
-- ✅ Cross-sheet navigation
-- ✅ Dashboard published and PDF exported
-- ✅ Before/after Topic screenshots
-- ✅ Q Exploration Log — 5 entries across all 3 domains
-- ✅ 5 dashboard annotations with numbers + implications + actions
-- ✅ Written report for Sarah Chen — 3 pages
+| Dataset                            | Source Rows | Key Field    | Purpose                                  |
+| ---------------------------------- | ----------: | ------------ | ---------------------------------------- |
+| `novatech_crm_deals.csv`           |         499 | `account_id` | Sales pipeline and deal performance      |
+| `novatech_marketing_campaigns.csv` |       2,240 | `account_id` | Campaign performance and marketing spend |
+| `novatech_support_tickets.csv`     |       3,000 | `account_id` | Customer support and health analysis     |
+| Unified dataset                    |        >499 | `account_id` | Cross-domain customer analysis           |
 
 ---
 
-*Built with Amazon QuickSight SPICE | Udacity AWS AI & ML Scholars Program*
+## 🔧 Data Preparation
+
+Steps included:
+
+* Imported all three source CSV files into **Amazon QuickSight SPICE**.
+* Verified source row counts against expected datasets.
+* Corrected date and numerical fields.
+* Created business calculations (won deals, sales-cycle duration, marketing ROI).
+* Built unified dataset using left joins on `account_id`.
+* Checked for duplication and fan-out effects.
+* Validated dashboard values independently.
+
+### Data-quality observations
+
+* Duplicate identifiers in some sources.
+* Missing sentiment values.
+* Support records without CRM accounts.
+* Marketing records without CRM accounts.
+* Row inflation due to one-to-many relationships.
+
+---
+
+## 📈 Dashboard Structure
+
+Three sheets:
+
+| Sheet                | Primary Dataset | Purpose                                                                  |
+| -------------------- | --------------- | ------------------------------------------------------------------------ |
+| **Marketing Funnel** | Marketing       | Campaign responses, spending, revenue, and marketing performance         |
+| **Sales Pipeline**   | CRM             | Deal pipeline, win rate, revenue, regions, and losses                    |
+| **Customer Health**  | Unified         | Customer support activity, account health, and priority-related analysis |
+
+---
+
+## 🔍 Key Findings
+
+### Sales Performance
+* **315 of 499 deals won** → **63.1% win rate**  
+* Won revenue ≈ **$707,201**  
+* Regional differences in win rates and revenue
+
+### Marketing Performance
+* Campaign spending ≈ **$12.36M**  
+* Attributed revenue ≈ **$1.13M**  
+* Overall marketing return strongly negative  
+* All six programs show negative ROI  
+* **Direct Mail** has strongest conversion response
+
+### Customer Health
+* **ACCT-041** logged **334 tickets** (highest volume)  
+* Unified dataset connects support activity with revenue  
+* Priority analysis shows resolution differences by ticket severity
+
+---
+
+## 🤖 QuickSight Q&A / Topic
+
+Workflow:
+
+1. Initial questions before Topic setup  
+2. Topic creation and configuration  
+3. Dataset scoping  
+4. Instructions and setup  
+5. Post-configuration Q&A  
+6. Comparison with verified dashboard values  
+7. Documentation of grain-related aggregate issues  
+
+---
+
+## 🎛️ Dashboard Interactivity
+
+Includes:
+
+* Sheet-level filters  
+* Interactive filtering between visuals  
+* Cross-sheet navigation  
+* Published dashboard views  
+* Evidence in screenshots  
+
+---
+
+## 📝 Dashboard Annotations
+
+Annotations answer:
+
+1. **What does the data show?**  
+2. **Why does it matter?**  
+3. **What action should the team take?**
+
+---
+
+## 📋 Supporting Documentation
+
+- `verification_log.md` → Independent checks  
+- `q_exploration_log.md` → Five exploratory Q&A questions  
+- `methodology.md` → Data prep, validation, joins  
+- `exec_summary.md` → Concise findings summary  
+- `stakeholder_report.md` → Report for **Sarah Chen**  
+- `evidence_guide.md` → Evidence mapping  
+
+---
+
+## 📂 Evidence
+
+Located in `NovaTech_Project/screenshots/`:
+
+* QuickSight setup  
+* Dataset ingestion & validation  
+* Calculated fields  
+* Dataset joins  
+* Dashboard construction  
+* KPI visuals  
+* Filters & interactions  
+* Topic configuration  
+* Q&A testing  
+* Publication & navigation  
+* Final dashboard state  
+
+PDF export available in `pdfs/`.
+
+---
+
+## ✅ Project Checklist
+
+* [x] CRM, Marketing, Support datasets prepared  
+* [x] SPICE ingestion complete  
+* [x] Data corrections applied  
+* [x] Calculations created  
+* [x] Unified dataset built  
+* [x] Dashboard sheets created  
+* [x] KPIs included  
+* [x] Filters & interactions configured  
+* [x] Cross-sheet navigation enabled  
+* [x] Q&A Topic configured  
+* [x] Evidence collected  
+* [x] Logs documented  
+* [x] Reports prepared  
+* [x] Dashboard published & exported  
+
+---
+
+## 🛠️ Technology
+
+* **Amazon QuickSight**  
+* **QuickSight SPICE**  
+* **QuickSight Q&A / Topics**  
+* **CSV datasets**  
+* Independent validation  
+
+---
+
+*Built as part of the Udacity Future AWS Agentic AI Business Professional program.*  
+*Student: Kasmya Bhatia*
