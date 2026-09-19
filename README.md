@@ -229,4 +229,3 @@ PDF export available in `pdfs/`.
 ---
 
 *Built as part of the Udacity Future AWS Agentic AI Business Professional program.*  
-*Student: Kasmya Bhatia*
