@@ -2,10 +2,6 @@
 
 ## Udacity — Future AWS Agentic AI Business Professional
 
-**Student:** Kasmya Bhatia  
-**Submitted:** September 12, 2026  
-**Platform:** Amazon QuickSight (SPICE)
-
 ---
 
 ## 🔗 Live Dashboard
